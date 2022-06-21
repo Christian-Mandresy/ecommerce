@@ -1,0 +1,139 @@
+<?php
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="<?php echo base_url()?>assets/css/bootstrap.min.css" />
+    <title>Document</title>
+</head>
+<body style="background-color: whitesmoke">
+<div class="container centered col-8" style="background-color: #aaaaaa">
+    <h3>Formulaire Bon De Commande</h3>
+        <form action="<?php echo base_url('TraitBonCommande/traitement') ?>" id="Form" method="post">
+            <div class="mb-3">
+                <input type="button" value="Ajouter ReferenceDetail" id="ajout">
+                <input type="button" value="effacer ReferenceDetail" id="delete">
+            </div>
+            <br>
+            <label for="ReferenceProformat">Reference Proforma</label>
+            <input type="text" name="proforma">
+            <br>
+            <label for="DelaiLivraison">Delai Livraison</label>
+            <input type="datetime-local" name="delai">
+            <br>
+            <label for="ReferenceDetail">ReferenceDetail</label>
+            <input type="text" name="Ref0" class="Ref" id="Ref0" onkeyup="suggest(this.value,0)">
+            <label for="qte">Qte</label>
+            <input type="number" name="qte0" value="1">
+            <p id="output0" style="color: blue;"></p>
+            <input type="submit" value="valider" id="valider">
+        </form>
+    <p style="color: red"><?php if(isset($error)==true){
+            echo $error;
+        } ?></p>
+    <p style="color: forestgreen"><?php if(isset($success)==true){
+            echo $success;
+        } ?></p>
+</div>
+
+</body>
+<script >
+    var formulaire= document.getElementById("Form");
+    var bouton=document.getElementById("ajout");
+    var boutondelete=document.getElementById("delete");
+
+    function suggest(str,inty)
+    {
+        if(str.length == 0){
+            document.getElementById("output"+inty).innerHTML = 'veuiller verifier votre reference';
+            document.getElementById("output"+inty).style.color="red";
+        } else {
+            // AJAX REQ
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
+                    console.log(inty);
+                    console.log("ilay message "+this.responseText);
+                    document.getElementById("output"+inty).innerHTML = this.responseText;
+                    if(this.responseText == "veuiller verifier votre reference")
+                    {
+                        document.getElementById("output"+inty).style.color="red";
+                    }
+                    else
+                    {
+                        document.getElementById("output"+inty).style.color="blue";
+                    }
+                }
+            }
+            var path="<?php echo base_url('TraitBonCommande/Suggestion')?>";
+            xmlhttp.open("GET", path+"?q="+str, true);
+            xmlhttp.send();
+        }
+    }
+
+    bouton.addEventListener("click",function () {
+    	//nombre d'input deja present dans le formulaire
+        var nombreChild=formulaire.getElementsByClassName("Ref").length;
+
+        //bouton valider
+        var boutonValide=document.getElementById("valider");
+        var parent=boutonValide.parentNode;
+
+        //creation du label
+        var labelRef=document.createElement('label');
+        labelRef.innerHTML="ReferenceDetail";
+        labelRef.id="labelref"+nombreChild;
+        var labelQte=document.createElement('label');
+        labelQte.innerHTML="Qte";
+        labelQte.id="labelqte"+nombreChild;
+
+        //creation du paragraphe pour afficher le produit
+        var p=document.createElement('p');
+        p.id="output"+nombreChild;
+        //p.style.color="blue";
+
+        //creation du nouvelle input reference
+        var newinput=document.createElement('input');
+        var stringname="Ref"+nombreChild;
+        newinput.className="Ref";
+        newinput.name=stringname;
+        newinput.id="Ref"+nombreChild;
+
+        //creation du nouvelle input qte
+        var newinputqte=document.createElement('input');
+        var qtename="qte"+nombreChild;
+        newinputqte.name=qtename;
+        newinputqte.type="number";
+        newinputqte.defaultValue="1";
+        newinputqte.id="qte"+nombreChild;
+
+        parent.insertBefore(labelRef,boutonValide);
+        parent.insertBefore(newinput,boutonValide);
+        parent.insertBefore(labelQte,boutonValide);
+        parent.insertBefore(newinputqte,boutonValide);
+        parent.insertBefore(p,boutonValide);
+        newinput.onkeyup=ev => {suggest(newinput.value,nombreChild)};
+
+    },false)
+
+    boutondelete.addEventListener("click",function () {
+    	var nombreChild=(formulaire.getElementsByClassName("Ref").length)-1;
+    	console.log(nombreChild);
+    	var labelRefer=document.getElementById("labelref"+nombreChild);
+    	var labelQte=document.getElementById("labelqte"+nombreChild);
+    	var inputy=document.getElementById("Ref"+nombreChild);
+    	var qtite=document.getElementById("qte"+nombreChild);
+    	var p=document.getElementById("output"+nombreChild);
+    	labelRefer.remove();
+    	labelQte.remove();
+    	inputy.remove();
+    	qtite.remove();
+    	p.remove();
+    },false)
+</script>
+</html>
