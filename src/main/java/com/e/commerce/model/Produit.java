@@ -10,11 +10,11 @@ public class Produit {
     private String nom;
     private double prix;
     private String description;
-    private Set<ProduitCategorie> listcategorie;
+    private Set<Categorie> listCategorie;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -24,7 +24,7 @@ public class Produit {
     }
 
     @Basic
-    @Column(name = "nom", nullable = false, length = 60)
+    @Column(name = "nom")
     public String getNom() {
         return nom;
     }
@@ -34,7 +34,7 @@ public class Produit {
     }
 
     @Basic
-    @Column(name = "prix", nullable = false, precision = 0)
+    @Column(name = "prix")
     public double getPrix() {
         return prix;
     }
@@ -44,7 +44,7 @@ public class Produit {
     }
 
     @Basic
-    @Column(name = "description", nullable = true, length = -1)
+    @Column(name = "description")
     public String getDescription() {
         return description;
     }
@@ -69,12 +69,13 @@ public class Produit {
         return Objects.hash(id, nom, prix, description);
     }
 
-    @OneToMany
-    public Set<ProduitCategorie> getListcategorie() {
-        return listcategorie;
+    @ManyToMany
+    @JoinTable(name = "produit_categorie", catalog = "", schema = "ecommerce", joinColumns = @JoinColumn(name = "idproduit", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "idcategorie", referencedColumnName = "id", nullable = false))
+    public Set<Categorie> getListCategorie() {
+        return listCategorie;
     }
 
-    public void setListcategorie(Set<ProduitCategorie> listcategorie) {
-        this.listcategorie = listcategorie;
+    public void setListCategorie(Set<Categorie> listCategorie) {
+        this.listCategorie = listCategorie;
     }
 }

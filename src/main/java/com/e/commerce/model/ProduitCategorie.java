@@ -12,7 +12,7 @@ public class ProduitCategorie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -22,7 +22,7 @@ public class ProduitCategorie {
     }
 
     @Basic
-    @Column(name = "idproduit", nullable = false)
+    @Column(name = "idproduit")
     public int getIdproduit() {
         return idproduit;
     }
@@ -32,7 +32,7 @@ public class ProduitCategorie {
     }
 
     @Basic
-    @Column(name = "idcategorie", nullable = false)
+    @Column(name = "idcategorie")
     public int getIdcategorie() {
         return idcategorie;
     }

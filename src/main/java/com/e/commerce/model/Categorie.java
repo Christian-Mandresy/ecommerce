@@ -1,19 +1,20 @@
 package com.e.commerce.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class Categorie {
     private int id;
     private String nom;
     private Integer idParent;
+    private Set<Produit> listProduit;
 
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -23,7 +24,7 @@ public class Categorie {
     }
 
     @Basic
-    @Column(name = "nom", nullable = false, length = 15)
+    @Column(name = "nom")
     public String getNom() {
         return nom;
     }
@@ -33,7 +34,7 @@ public class Categorie {
     }
 
     @Basic
-    @Column(name = "id_parent", nullable = true)
+    @Column(name = "id_parent")
     public Integer getIdParent() {
         return idParent;
     }
@@ -55,5 +56,15 @@ public class Categorie {
     @Override
     public int hashCode() {
         return Objects.hash(id, nom, idParent);
+    }
+
+    @ManyToMany(mappedBy = "listCategorie")
+    @JsonIgnore
+    public Set<Produit> getListProduit() {
+        return listProduit;
+    }
+
+    public void setListProduit(Set<Produit> listProduit) {
+        this.listProduit = listProduit;
     }
 }

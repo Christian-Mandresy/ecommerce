@@ -10,7 +10,7 @@ public class ProduitImage {
     private String nomimage;
 
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     public int getId() {
         return id;
     }
@@ -20,7 +20,7 @@ public class ProduitImage {
     }
 
     @Basic
-    @Column(name = "nomimage", nullable = false, length = 26)
+    @Column(name = "nomimage")
     public String getNomimage() {
         return nomimage;
     }

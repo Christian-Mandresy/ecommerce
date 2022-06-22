@@ -48,7 +48,9 @@ public class ProduitDaoImpl implements ProduitDao {
             tx=session.beginTransaction();
             session.save(prod);
             int id=prod.getId();
-            for (int i = 0; i < listcat.length; i++) {
+            listcat[0].setIdproduit(id);
+            session.save(listcat[0]);
+            for (int i = 1; i < listcat.length; i++) {
                 listcat[i].setIdproduit(id);
                 session.save(listcat[i]);
             }
