@@ -2,7 +2,6 @@ package com.e.commerce.service.impl;
 
 import com.e.commerce.dao.ProduitDao;
 import com.e.commerce.model.Produit;
-import com.e.commerce.model.ProduitCategorie;
 import com.e.commerce.service.ProduitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,13 +20,8 @@ public class ProduitServiceImpl implements ProduitService {
     }
 
     @Override
-    public void save(Produit produit, ProduitCategorie[] produitCategories)
+    public List finByCategorie(int id)
     {
-        try {
-            produitDao.save(produit,produitCategories);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw e;
-        }
+        return produitDao.findByCategorie(id);
     }
 }

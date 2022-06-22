@@ -2,7 +2,6 @@ package com.e.commerce.model;
 
 import javax.persistence.*;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 public class Produit {
@@ -10,10 +9,9 @@ public class Produit {
     private String nom;
     private double prix;
     private String description;
-    private Set<Categorie> listCategorie;
+    private com.e.commerce.model.Categorie Categorie;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public int getId() {
         return id;
@@ -69,13 +67,13 @@ public class Produit {
         return Objects.hash(id, nom, prix, description);
     }
 
-    @ManyToMany
-    @JoinTable(name = "produit_categorie", catalog = "", schema = "ecommerce", joinColumns = @JoinColumn(name = "idproduit", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "idcategorie", referencedColumnName = "id", nullable = false))
-    public Set<Categorie> getListCategorie() {
-        return listCategorie;
+    @OneToOne
+    @JoinColumn(name = "idcategorie", referencedColumnName = "id", nullable = false)
+    public com.e.commerce.model.Categorie getCategorie() {
+        return Categorie;
     }
 
-    public void setListCategorie(Set<Categorie> listCategorie) {
-        this.listCategorie = listCategorie;
+    public void setCategorie(com.e.commerce.model.Categorie categorie) {
+        Categorie = categorie;
     }
 }

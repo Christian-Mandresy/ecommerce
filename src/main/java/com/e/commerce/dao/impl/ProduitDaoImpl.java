@@ -1,12 +1,13 @@
 package com.e.commerce.dao.impl;
 
 import com.e.commerce.dao.ProduitDao;
-import com.e.commerce.model.Categorie;
 import com.e.commerce.model.Produit;
-import com.e.commerce.model.ProduitCategorie;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -39,29 +40,24 @@ public class ProduitDaoImpl implements ProduitDao {
     }
 
     @Override
-    public void save(Produit prod, ProduitCategorie[] listcat)
+    public List findByCategorie(int idCateg)
     {
-        Session session=this.sessionFactory.openSession();
+        Session session = this.sessionFactory.openSession();
         Transaction tx = null;
-        try
-        {
-            tx=session.beginTransaction();
-            session.save(prod);
-            int id=prod.getId();
-            listcat[0].setIdproduit(id);
-            session.save(listcat[0]);
-            for (int i = 1; i < listcat.length; i++) {
-                listcat[i].setIdproduit(id);
-                session.save(listcat[i]);
-            }
+        try {
+            tx = session.beginTransaction();
+            Criteria criteria=session.createCriteria(Produit.class);
+            Criterion criterion= Restrictions.eq("idcategorie",idCateg);
+            criteria.add(criterion);
+            List type = criteria.list();
             tx.commit();
-        }
-        catch (Exception e)
-        {
-            tx.rollback();
+            return type;
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
             throw e;
-        }
-        finally {
+        } finally {
             session.close();
         }
     }
