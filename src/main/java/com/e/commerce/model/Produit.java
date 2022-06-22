@@ -9,7 +9,8 @@ public class Produit {
     private String nom;
     private double prix;
     private String description;
-    private com.e.commerce.model.Categorie Categorie;
+    private int idcategorie;
+    private Categorie categorie;
 
     @Id
     @Column(name = "id")
@@ -51,6 +52,16 @@ public class Produit {
         this.description = description;
     }
 
+    @Basic
+    @Column(name = "idcategorie",insertable = false,updatable = false)
+    public int getIdcategorie() {
+        return idcategorie;
+    }
+
+    public void setIdcategorie(int idcategorie) {
+        this.idcategorie = idcategorie;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -58,22 +69,23 @@ public class Produit {
         Produit produit = (Produit) o;
         return id == produit.id &&
                 Double.compare(produit.prix, prix) == 0 &&
+                idcategorie == produit.idcategorie &&
                 Objects.equals(nom, produit.nom) &&
                 Objects.equals(description, produit.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nom, prix, description);
+        return Objects.hash(id, nom, prix, description, idcategorie);
     }
 
     @OneToOne
     @JoinColumn(name = "idcategorie", referencedColumnName = "id", nullable = false)
-    public com.e.commerce.model.Categorie getCategorie() {
-        return Categorie;
+    public Categorie getCategorie() {
+        return categorie;
     }
 
-    public void setCategorie(com.e.commerce.model.Categorie categorie) {
-        Categorie = categorie;
+    public void setCategorie(Categorie categorie) {
+        this.categorie = categorie;
     }
 }
