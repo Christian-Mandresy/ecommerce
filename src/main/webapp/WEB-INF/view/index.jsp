@@ -177,66 +177,34 @@
     </div>
     <!-- Navbar End -->
 
-    <!-- Categories Start -->
-    <div class="container-fluid pt-5">
-        <div class="row px-xl-5 pb-3">
-            <div class="col-lg-4 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">15 Products</p>
-                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="static/eshopper/img/cat-1.jpg" alt="">
-                    </a>
-                    <h5 class="font-weight-semi-bold m-0">Men's dresses</h5>
-                </div>
+    <div class="mb-4">
+        <h4 class="font-weight-semi-bold mb-4">Rechercher Produit</h4>
+        <form action="RechercheMulti" class="col-sm-6">
+        <div class="row">
+            <div class="col-md-6 form-group">
+                <label>Nom</label>
+                <input type="text" class="form-control" placeholder="Nom du produit">
             </div>
-            <div class="col-lg-4 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">15 Products</p>
-                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="static/eshopper/img/cat-2.jpg" alt="">
-                    </a>
-                    <h5 class="font-weight-semi-bold m-0">Women's dresses</h5>
-                </div>
+            <div class="col-md-6 form-group">
+                <label>Choisir une categorie</label>
+                <select class="custom-select">
+                    <c:forEach items="${requestScope.categorie}" var="lists">
+                        <option value="${lists.getId()}"> ${lists.getNom()}</option>
+                    </c:forEach>
+                </select>
             </div>
-            <div class="col-lg-4 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">15 Products</p>
-                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="static/eshopper/img/cat-3.jpg" alt="">
-                    </a>
-                    <h5 class="font-weight-semi-bold m-0">Baby's dresses</h5>
-                </div>
+            <h6 class="font-weight-semi-bold mb-4">entrer une intervalle</h6>
+            <div class="col-md-6 form-group">
+                <label for="Prix1">prix 1</label>
+                <input type="number" name="prix1" class="form-control" id="Prix1">
             </div>
-            <div class="col-lg-4 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">15 Products</p>
-                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="static/eshopper/img/cat-4.jpg" alt="">
-                    </a>
-                    <h5 class="font-weight-semi-bold m-0">Accerssories</h5>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">15 Products</p>
-                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="static/eshopper/img/cat-5.jpg" alt="">
-                    </a>
-                    <h5 class="font-weight-semi-bold m-0">Bags</h5>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 pb-1">
-                <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
-                    <p class="text-right">15 Products</p>
-                    <a href="" class="cat-img position-relative overflow-hidden mb-3">
-                        <img class="img-fluid" src="static/eshopper/img/cat-6.jpg" alt="">
-                    </a>
-                    <h5 class="font-weight-semi-bold m-0">Shoes</h5>
-                </div>
+            <div class="col-md-6 form-group">
+                <label for="Prix2">prix 2</label>
+                <input type="number" name="prix2" class="form-control" id="Prix2">
             </div>
         </div>
+        </form>
     </div>
-    <!-- Categories End -->
 
     <!-- Products Start -->
     <div class="container-fluid pt-5">

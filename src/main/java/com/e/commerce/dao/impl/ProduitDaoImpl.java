@@ -2,15 +2,14 @@ package com.e.commerce.dao.impl;
 
 import com.e.commerce.dao.ProduitDao;
 import com.e.commerce.model.Produit;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.hibernate.*;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Repository
@@ -58,6 +57,44 @@ public class ProduitDaoImpl implements ProduitDao {
             }
             throw e;
         } finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public List findMulti(String nom, String idCategorie, String prix1, String prix2)
+    {
+        Session session = this.sessionFactory.openSession();
+        try {
+
+            // test si dans la clause where il faut mettre where ou and
+            Boolean test=true;
+            StringBuilder sql=new StringBuilder("select * from Produit ");
+            if (nom.equals("")==false) {
+                sql.append(test ? "where " : " and ");
+                sql.append("nom like "+nom);
+                test=false;
+            }
+            if (idCategorie.equals("")==false) {
+                sql.append(test ? "where " : " and ");
+                sql.append("idcategorie = "+idCategorie);
+                test=false;
+            }
+            if (prix1.equals("")==false && prix2.equals("")==false) {
+                sql.append(test ? "where " : " and ");
+                sql.append("prix between "+prix1+ " and "+prix2);
+                test=false;
+            }
+
+            String queryFinal=sql.toString();
+            SQLQuery query= session.createSQLQuery(queryFinal)
+                    .addEntity(Produit.class);
+            List resultat = query.list();
+            return resultat;
+        } catch (Exception e) {
+            throw e;
+        }
+        finally {
             session.close();
         }
     }

@@ -24,4 +24,10 @@ public class ProduitServiceImpl implements ProduitService {
     {
         return produitDao.findByCategorie(id);
     }
+
+    @Override
+    public List findMulti(String nom, String idcategorie, String prix1, String prix2)
+    {
+        return produitDao.findMulti(nom,idcategorie,prix1,prix2);
+    }
 }

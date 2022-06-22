@@ -8,4 +8,6 @@ public interface ProduitService {
     List findall();
 
     abstract List finByCategorie(int id);
+
+    List findMulti(String nom, String idcategorie, String prix1, String prix2);
 }
