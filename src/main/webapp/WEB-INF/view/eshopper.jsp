@@ -9,7 +9,7 @@
     <meta content="Free HTML Templates" name="description">
 
     <!-- Favicon -->
-    <link href="eshopper/img/favicon.ico" rel="icon">
+    <link href="static/eshopper/img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -19,10 +19,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="static/eshopper/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="eshopper/css/style.css" rel="stylesheet">
+    <link href="static/eshopper/css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -252,11 +252,11 @@
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 
     <!-- Contact Javascript File -->
-    <script src="mail/jqBootstrapValidation.min.js"></script>
-    <script src="mail/contact.js"></script>
+    <script src="static/eshopper/mail/jqBootstrapValidation.min.js"></script>
+    <script src="static/eshopper/mail/contact.js"></script>
 
     <!-- Template Javascript -->
-    <script src="eshopper/js/main.js"></script>
+    <script src="static/eshopper/js/main.js"></script>
 </body>
 
 </html>

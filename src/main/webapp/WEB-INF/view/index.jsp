@@ -179,15 +179,15 @@
 
     <div class="mb-4">
         <h4 class="font-weight-semi-bold mb-4">Rechercher Produit</h4>
-        <form action="RechercheMulti" class="col-sm-6">
+        <form action="RechercheMulti" class="col-md-6">
         <div class="row">
             <div class="col-md-6 form-group">
                 <label>Nom</label>
-                <input type="text" class="form-control" placeholder="Nom du produit">
+                <input type="text" class="form-control" placeholder="Nom du produit" name="nom">
             </div>
             <div class="col-md-6 form-group">
                 <label>Choisir une categorie</label>
-                <select class="custom-select">
+                <select class="custom-select" name="categorie">
                     <c:forEach items="${requestScope.categorie}" var="lists">
                         <option value="${lists.getId()}"> ${lists.getNom()}</option>
                     </c:forEach>
@@ -203,6 +203,7 @@
                 <input type="number" name="prix2" class="form-control" id="Prix2">
             </div>
         </div>
+            <button type="submit">Rechercher</button>
         </form>
     </div>
 
@@ -226,7 +227,7 @@
                     </div>
                     <div class="card-footer d-flex justify-content-between bg-light border">
                         <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View Detail</a>
-                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                        <a href="AjouterPanier?prix=${lists.getPrix()}&id=${lists.getId()}&name=${lists.getNom()}" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
                     </div>
                 </div>
             </div>

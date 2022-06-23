@@ -10,6 +10,8 @@ public class Produit {
     private double prix;
     private String description;
     private int idcategorie;
+    private int quantite;
+    private String unite;
     private Categorie categorie;
 
     @Id
@@ -62,6 +64,26 @@ public class Produit {
         this.idcategorie = idcategorie;
     }
 
+    @Basic
+    @Column(name = "quantite")
+    public int getQuantite() {
+        return quantite;
+    }
+
+    public void setQuantite(int quantite) {
+        this.quantite = quantite;
+    }
+
+    @Basic
+    @Column(name = "unite")
+    public String getUnite() {
+        return unite;
+    }
+
+    public void setUnite(String unite) {
+        this.unite = unite;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -70,13 +92,21 @@ public class Produit {
         return id == produit.id &&
                 Double.compare(produit.prix, prix) == 0 &&
                 idcategorie == produit.idcategorie &&
+                quantite == produit.quantite &&
                 Objects.equals(nom, produit.nom) &&
-                Objects.equals(description, produit.description);
+                Objects.equals(description, produit.description) &&
+                Objects.equals(unite, produit.unite);
+    }
+
+    public boolean equalsId(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Produit produit = (Produit) o;
+        return id == produit.id ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nom, prix, description, idcategorie);
+        return Objects.hash(id, nom, prix, description, idcategorie, quantite, unite);
     }
 
     @OneToOne
