@@ -49,17 +49,15 @@ public class Panier {
 
     public void ajouter(Carte carte)
     {
+        Boolean test=false;
         for (int i = 0; i < this.CarteList.size(); i++) {
             if(this.CarteList.get(i).equals(carte))
             {
                 this.CarteList.get(i).setQuantite(CarteList.get(i).getQuantite()+1);
-            }
-            else
-            {
-                this.CarteList.add(carte);
+                test=true;
             }
         }
-        if(this.CarteList.size()==0)
+        if(this.CarteList.size()==0 || test==false)
         {
             this.CarteList.add(carte);
         }
